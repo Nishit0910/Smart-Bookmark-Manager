@@ -1,4 +1,4 @@
-# Smart Bookmark App
+## Smart Bookmark App
 
 A premium, real-time bookmark manager built with **Next.js 14**, **Supabase**, and **Tailwind CSS**.
 
@@ -18,59 +18,17 @@ A premium, real-time bookmark manager built with **Next.js 14**, **Supabase**, a
 - **Styling**: Tailwind CSS v4, Lucide React (Icons)
 - **Animation**: Framer Motion
 - **Deployment**: Vercel
+ 
+### 🔍 Cause:
+Google provider was not enabled in Supabase.
 
-## Setup & Installation
+### ✅ Solution:
+- Enabled Google in:
+- Added OAuth Client ID & Secret
+- Set correct redirect URL:`
 
-1.  **Clone the repository**:
-    ```bash
-    git clone https://github.com/Aman5012/smart-bookmarks-app.git
-    cd smart-bookmarks-app
-    ```
+---
 
-2.  **Install Dependencies**:
-    ```bash
-    npm install
-    ```
+## 2️⃣ Next.js Hydration Mismatch Error
 
-3.  **Environment Variables**:
-    Create a `.env.local` file:
-    ```env
-    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-    ```
-
-4.  **Database Schema**:
-    Run this SQL in your Supabase SQL Editor:
-    ```sql
-    create table bookmarks (
-      id uuid default gen_random_uuid() primary key,
-      user_id uuid references auth.users not null,
-      title text not null,
-      url text not null,
-      created_at timestamptz default now()
-    );
-
-    alter table bookmarks enable row level security;
-
-    create policy "Users can see their own bookmarks"
-      on bookmarks for select using (auth.uid() = user_id);
-
-    create policy "Users can insert their own bookmarks"
-      on bookmarks for insert with check (auth.uid() = user_id);
-
-    create policy "Users can delete their own bookmarks"
-      on bookmarks for delete using (auth.uid() = user_id);
-
-    alter publication supabase_realtime add table bookmarks;
-    ```
-
-5.  **Run Locally**:
-    ```bash
-    npm run dev
-    ```
-
-## Development History
-
-- **Auth Debugging**: Resolved redirects for production vs localhost.
-- **Styling Fixes**: Migrated to Tailwind v4 and restored custom fonts/gradients for Vercel deployment.
-- **Deployment**: Hosted on Vercel at [https://smart-bookmarks-app.vercel.app](https://smart-bookmarks-app.vercel.app).
+### ❌ Error:
